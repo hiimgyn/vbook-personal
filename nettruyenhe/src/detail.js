@@ -53,16 +53,15 @@ function execute(url) {
         
         // Tìm li chứa "Lượt xem" và lấy số liệu
         let viewElements = doc.select(".list-info li");
-        for (let i = 0; i < viewElements.length; i++) {
-            let nameText = doc.select(viewElements[i]).select(".name").text();
+        viewElements.forEach(element => {
+            let nameText = element.select(".name").text();
             if (nameText && nameText.indexOf("Lượt xem") >= 0) {
-                let viewCount = doc.select(viewElements[i]).select(".col-xs-8").text();
+                let viewCount = element.select(".col-xs-8").text();
                 if (viewCount) {
                     detail += "<br>Lượt xem: " + viewCount;
                 }
-                break;
             }
-        }
+        });
 
         // Lấy tác giả từ li.author .col-xs-8
         let author = doc.select(".author .col-xs-8").first().text();
@@ -80,6 +79,7 @@ function execute(url) {
         let statusText = doc.select(".status .col-xs-8").first().text();
         let ongoing = statusText && statusText.indexOf("Đang tiến hành") >= 0;
 
+        Console.log("Detail extracted successfully")
         return Response.success({
             name: doc.select("h1.title-detail").first().text(),
             cover: coverImg,
@@ -88,10 +88,11 @@ function execute(url) {
             detail: detail,
             ongoing: ongoing,
             genres: genres,
-            comment: {
+            comments: [{
+                title: "Bình luận",
                 input: BASE_URL + "/Comic/Services/CommentService.asmx/List?comicId=" + comicId + "&orderBy=0&chapterId=-1&parentId=0&token=" + token,
                 script: "comment.js"
-            },
+            }],
             host: BASE_URL
         });
     }
