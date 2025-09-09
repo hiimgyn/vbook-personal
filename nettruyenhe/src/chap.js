@@ -18,19 +18,34 @@ function execute(url) {
                     img = "https:" + img;
                 }
                 
-                // Tạo danh sách fallback từ các server dự phòng
+                // Tạo danh sách fallback từ các server dự phóng
                 let fallbackUrls = [];
+                
+                // Thêm server dự phòng 1
                 if (dataSv1) {
                     if (dataSv1.startsWith("//")) {
                         dataSv1 = "https:" + dataSv1;
                     }
                     fallbackUrls.push(dataSv1);
                 }
+                
+                // Thêm server dự phòng 2
                 if (dataSv2) {
                     if (dataSv2.startsWith("//")) {
                         dataSv2 = "https:" + dataSv2;
                     }
                     fallbackUrls.push(dataSv2);
+                }
+                
+                // Thêm Google Proxy làm fallback cuối cùng (học từ TruyenQQ)
+                if (img) {
+                    fallbackUrls.push('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&gadget=a&no_expand=1&resize_h=0&rewriteMime=image/*&url=' + encodeURIComponent(img));
+                }
+                
+                // Thêm fallback với domain alternative (tương tự TruyenQQ)
+                if (img.indexOf("viestorage.com") > -1) {
+                    let alternativeUrl = img.replace("viestorage.com", "vieestorage.com");
+                    fallbackUrls.push(alternativeUrl);
                 }
                 
                 data.push({
