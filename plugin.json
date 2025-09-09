@@ -1,0 +1,66 @@
+{
+  "metadata": {
+    "author": "hiimgyn",
+    "description": ""
+  },
+  "data": [
+    {
+      "name": "Góc Truyện Tranh",
+      "author": "hiimgyn",
+      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-extensions/master/bachngocsach/plugin.zip",
+      "version": 13,
+      "source": "https://bnsach.com/reader",
+      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-extensions/master/bachngocsach/icon.png",
+      "description": "Đọc truyện trên trang goctruyentranh",
+      "type": "comic",
+      "locale": "vi_VN"
+    },
+    {
+      "name": "Truyện QQ",
+      "author": "hiimgyn",
+      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-extensions/master/truyenqq/plugin.zip",
+      "version": 21,
+      "type": "comic",
+      "locale": "vi_VN",
+      "source": "https://truyenqqgo.com",
+      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-extensions/master/truyenqq/icon.png",
+      "description": "Đọc truyện trên trang Truyện QQ"
+    },
+{
+      "name": "NetTruyenHe",
+      "author": "hiimgyn",
+      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-extensions/master/nettruyenhe/plugin.zip",
+      "version": 21,
+      "type": "comic",
+      "locale": "vi_VN",
+      "source": "https://nettruyenhe.com",
+      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-extensions/master/nettruyenhe/icon.png",
+      "description": "Đọc truyện trên trang NetTruyenHe"
+    },
+
+    {
+      "name": "Say Hentai",
+      "author": "hiimgyn",
+      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-ext/master/sayhentai/plugin.zip",
+      "version": 9,
+      "source": "https://sayhentai.one",
+      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-ext/master/sayhentai/icon.png",
+      "description": "Đọc truyện trên trang Sayhentai.one",
+      "type": "comic",
+      "locale": "vi_VN",
+      "tag": "nsfw"
+    },
+    {
+      "name": "Buondua",
+      "author": "hiimgyn",
+      "path": "https://raw.githubusercontent.com/dat-bi/ext-vbook/main/Buondua/plugin.zip",
+      "version": 2,
+      "source": "https://buondua.com/",
+      "icon": "https://raw.githubusercontent.com/dat-bi/ext-vbook/main/Buondua/icon.png",
+      "description": "Tập Hợp Album của Xiuren...",
+      "type": "comic",
+      "locale": "vi_VN",
+      "tag": "nsfw"
+    }
+  ]
+}

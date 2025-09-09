@@ -1,0 +1,16 @@
+{
+  "metadata": {
+    "name": "NetTruyenHE",
+    "author": "Gyn",
+    "version": 21,
+    "source": "https://nettruyenhe.com/",
+    "regexp": "(www.)?nettruyenhe.*?/truyen-tranh/[0-9a-z-]+/?$",
+    "description": "Đọc truyện trên trang NetTruyenHE",
+    "locale": "vi_VN",
+    "language": "javascript",
+    "type": "comic"
+  },
+  "script": {
+    "home": "home.js"
+  }
+}
