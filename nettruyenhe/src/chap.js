@@ -37,12 +37,12 @@ function execute(url) {
                     fallbackUrls.push(dataSv2);
                 }
                 
-                // Thêm Google Proxy làm fallback cuối cùng (học từ TruyenQQ)
+                // Thêm Google Proxy làm fallback cuối cùng
                 if (img) {
                     fallbackUrls.push('https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&gadget=a&no_expand=1&resize_h=0&rewriteMime=image/*&url=' + encodeURIComponent(img));
                 }
                 
-                // Thêm fallback với domain alternative (tương tự TruyenQQ)
+                // Thêm fallback với domain alternative
                 if (img.indexOf("viestorage.com") > -1) {
                     let alternativeUrl = img.replace("viestorage.com", "vieestorage.com");
                     fallbackUrls.push(alternativeUrl);
