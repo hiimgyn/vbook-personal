@@ -2,7 +2,7 @@
   "metadata": {
     "name": "Say Hentai",
     "author": "hiimgyn",
-    "version": 1.10925,
+    "version": 2,
     "source": "https://sayhentai.one",
     "regexp": "(www.)?sayhentai.(.*?)/[^/]+.html$",
     "description": "Đọc truyện trên trang Say Hentai",
