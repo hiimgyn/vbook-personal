@@ -7,10 +7,10 @@
     {
       "name": "Góc Truyện Tranh",
       "author": "hiimgyn",
-      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-extensions/master/bachngocsach/plugin.zip",
+      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/bachngocsach/plugin.zip",
       "version": 13,
       "source": "https://bnsach.com/reader",
-      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-extensions/master/bachngocsach/icon.png",
+      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/bachngocsach/icon.png",
       "description": "Đọc truyện trên trang goctruyentranh",
       "type": "comic",
       "locale": "vi_VN"
@@ -18,23 +18,23 @@
     {
       "name": "Truyện QQ",
       "author": "hiimgyn",
-      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-extensions/master/truyenqq/plugin.zip",
+      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/truyenqq/plugin.zip",
       "version": 21,
       "type": "comic",
       "locale": "vi_VN",
       "source": "https://truyenqqgo.com",
-      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-extensions/master/truyenqq/icon.png",
+      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/truyenqq/icon.png",
       "description": "Đọc truyện trên trang Truyện QQ"
     },
 {
       "name": "NetTruyenHe",
       "author": "hiimgyn",
-      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-extensions/master/nettruyenhe/plugin.zip",
+      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/nettruyenhe/plugin.zip",
       "version": 21,
       "type": "comic",
       "locale": "vi_VN",
       "source": "https://nettruyenhe.com",
-      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-extensions/master/nettruyenhe/icon.png",
+      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/nettruyenhe/icon.png",
       "description": "Đọc truyện trên trang NetTruyenHe"
     },
 
