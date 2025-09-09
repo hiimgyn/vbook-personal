@@ -5,17 +5,6 @@
   },
   "data": [
     {
-      "name": "Góc Truyện Tranh",
-      "author": "hiimgyn",
-      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/bachngocsach/plugin.zip",
-      "version": 1,
-      "source": "https://bnsach.com/reader",
-      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/bachngocsach/icon.png",
-      "description": "Đọc truyện trên trang goctruyentranh",
-      "type": "comic",
-      "locale": "vi_VN"
-    },
-    {
       "name": "Truyện QQ",
       "author": "hiimgyn",
       "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/truyenqq/plugin.zip",
