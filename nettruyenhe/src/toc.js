@@ -24,20 +24,22 @@ function execute(url) {
             let apiResponse = fetch(apiUrl);
             
             if (apiResponse.ok) {
-                let json = apiResponse.json();
-                let chapters = [];
+            let json = apiResponse.json();
+            let chapters = [];
+            
+            if (json.data && Array.isArray(json.data)) {
+                // Get the comic slug without the ID suffix
+                let comicSlug = url.split("/").pop().replace(/-\d+$/, '');
                 
-                if (json.data && Array.isArray(json.data)) {
-                    json.data.forEach(chapter => {
-                        chapters.push({
-                            name: chapter.chapter_name,
-                            url: BASE_URL + "/truyen-tranh/" + url.split("/").pop() + "/" + chapter.chapter_slug + "/" + chapter.chapter_id,
-                            host: BASE_URL
-                        });
-                    });
-                }
-                
-                return Response.success(chapters);
+                json.data.forEach(chapter => {
+                chapters.push({
+                    name: chapter.chapter_name,
+                    url: BASE_URL + "/truyen-tranh/" + comicSlug + "/" + chapter.chapter_slug + "/" + chapter.chapter_id,
+                    host: BASE_URL
+                });
+                });
+            }
+            return Response.success(chapters);
             }
         }
         

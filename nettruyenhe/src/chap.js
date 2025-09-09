@@ -53,7 +53,8 @@ function execute(url) {
                     
                     data.push({
                         link: img,
-                        fallback: fallbackUrls
+                        fallback: fallbackUrls,
+                        host: url
                     });
                 }
             });
