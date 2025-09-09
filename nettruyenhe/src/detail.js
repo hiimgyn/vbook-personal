@@ -79,7 +79,6 @@ function execute(url) {
         let statusText = doc.select(".status .col-xs-8").first().text();
         let ongoing = statusText && statusText.indexOf("Đang tiến hành") >= 0;
 
-        Console.log("Detail extracted successfully")
         return Response.success({
             name: doc.select("h1.title-detail").first().text(),
             cover: coverImg,

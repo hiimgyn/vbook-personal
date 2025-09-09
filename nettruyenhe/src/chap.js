@@ -7,26 +7,35 @@ function execute(url) {
         let doc = response.html();
         let data = [];
         doc.select(".page-chapter img").forEach(e => {
-            let img = e.attr("data-original");
-            let dataCdn = e.attr('data-cdn')
-            if (!img) {
-                img = e.attr("src");
-            }
-            if (dataCdn) {
-                if (dataCdn.startsWith("//")) {
-                    dataCdn = "https:" + dataCdn;
-                }
-            }
+            // Thử lấy URL ảnh từ các thuộc tính khác nhau
+            let img = e.attr("data-src") || e.attr("src") || e.attr("data-original");
+            let dataSv1 = e.attr('data-sv1');
+            let dataSv2 = e.attr('data-sv2');
+            
             if (img) {
+                // Chuẩn hóa URL nếu bắt đầu bằng //
                 if (img.startsWith("//")) {
-                    img = "http:" + img;
+                    img = "https:" + img;
                 }
+                
+                // Tạo danh sách fallback từ các server dự phòng
+                let fallbackUrls = [];
+                if (dataSv1) {
+                    if (dataSv1.startsWith("//")) {
+                        dataSv1 = "https:" + dataSv1;
+                    }
+                    fallbackUrls.push(dataSv1);
+                }
+                if (dataSv2) {
+                    if (dataSv2.startsWith("//")) {
+                        dataSv2 = "https:" + dataSv2;
+                    }
+                    fallbackUrls.push(dataSv2);
+                }
+                
                 data.push({
                     link: img,
-                    fallback: [
-                        dataCdn,
-                        'https://images1-focus-opensocial.googleusercontent.com/gadgets/proxy?container=focus&gadget=a&no_expand=1&resize_h=0&rewriteMime=image/*&url=' + encodeURIComponent(img)
-                    ]
+                    fallback: fallbackUrls
                 });
             }
         });
