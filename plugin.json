@@ -16,7 +16,7 @@
       "description": "Đọc truyện trên trang Truyện QQ"
     },
 {
-      "name": "NetTruyenHe",
+      "name": "NetTruyen",
       "author": "hiimgyn",
       "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/nettruyenhe/plugin.zip",
       "version": 2,
@@ -24,7 +24,7 @@
       "locale": "vi_VN",
       "source": "https://nettruyenhe.com",
       "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/nettruyenhe/icon.png",
-      "description": "Đọc truyện trên trang NetTruyenHe"
+      "description": "Đọc truyện trên các trang NetTruyen"
     },
 
     {
