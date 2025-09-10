@@ -15,7 +15,7 @@
       "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/truyenqq/icon.png",
       "description": "Đọc truyện trên trang Truyện QQ"
     },
-{
+    {
       "name": "NetTruyen",
       "author": "hiimgyn",
       "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/nettruyenhe/plugin.zip",
@@ -49,6 +49,18 @@
       "description": "Tập Hợp Album của Xiuren...",
       "type": "comic",
       "locale": "vi_VN",
+      "tag": "nsfw"
+    },
+    {
+      "name": "misskon",
+      "author": "hiimgyn",
+      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/misskon/plugin.zip",
+      "version": 1,
+      "source": "https://misskon.com",
+      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/misskon/icon.png",
+      "description": "Xem những hình ảnh nóng bỏng tại Misskon",
+      "locale": "en_US",
+      "type": "comic",
       "tag": "nsfw"
     }
   ]
