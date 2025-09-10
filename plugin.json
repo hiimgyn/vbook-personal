@@ -59,8 +59,8 @@
       "source": "https://misskon.com",
       "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/misskon/icon.png",
       "description": "Xem những hình ảnh nóng bỏng tại Misskon",
-      "locale": "en_US",
       "type": "comic",
+      "locale": "en_US",
       "tag": "nsfw"
     }
   ]

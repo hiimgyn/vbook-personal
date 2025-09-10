@@ -1,4 +1,4 @@
-`# Cấu trúc của extension
+# Cấu trúc của extension
 
 ## Thông tin extension
 
@@ -288,3 +288,8 @@ sleep(10000); // Delay 10 giây
 - Nhập thông tin khi có input box yêu cầu.
 
 ![IP](tutorial/4.png)
+
+
+# Credit
+
+[CREDIT README](https://github.com/Darkrai9x/vbook-extensions)
