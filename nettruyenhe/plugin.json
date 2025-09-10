@@ -1,11 +1,11 @@
 {
   "metadata": {
-    "name": "NetTruyenHE",
+    "name": "NetTruyen",
     "author": "hiimgyn",
     "version": 2,
     "source": "https://nettruyenhe.com/",
     "regexp": "(www.)?nettruyenhe.*?/truyen-tranh/[0-9a-z-]+/?$",
-    "description": "Đọc truyện trên trang NetTruyenHE",
+    "description": "Đọc truyện trên các trang NetTruyen",
     "locale": "vi_VN",
     "language": "javascript",
     "type": "comic"

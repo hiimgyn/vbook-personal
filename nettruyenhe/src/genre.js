@@ -1,14 +1,21 @@
 load('config.js');
 
 function execute() {
-    let response = fetch(BASE_URL + "/tim-truyen");
+    let result = fetchWithBackup(BASE_URL + "/tim-truyen");
+    if (!result) {
+        return null;
+    }
+    
+    let response = result.response;
+    let currentHost = result.currentHost;
+    
     if (response.ok) {
         let doc = response.html();
         let genres = [];
-        doc.select(".dropdown-genres option").forEach(e => {
+        doc.select(".dropdown-genres option").forEach(function(e) {
             genres.push({
                 title: e.text(),
-                input: e.attr("value"),
+                input: normalizeUrl(e.attr("value"), currentHost),
                 script: "gen.js"
             })
         });

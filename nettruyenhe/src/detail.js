@@ -1,9 +1,14 @@
 load('config.js');
 
 function execute(url) {
-    url = url.replace(/^(?:https?:\/\/)?(?:[^@\n]+@)?(?:www\.)?([^:\/\n?]+)/img, BASE_URL);
-
-    let response = fetch(url);
+    let result = fetchWithBackup(url);
+    if (!result) {
+        return null;
+    }
+    
+    let response = result.response;
+    let currentHost = result.currentHost;
+    
     if (response.ok) {
         let doc = response.html();
         
@@ -18,10 +23,10 @@ function execute(url) {
         
         // Lấy thể loại từ .kind .col-xs-8 a (cấu trúc: li.kind > p.col-xs-8 > a)
         let genres = [];
-        doc.select(".kind .col-xs-8 a").forEach(e => {
+        doc.select(".kind .col-xs-8 a").forEach(function(e) {
             genres.push({
                 title: e.text(),
-                input: e.attr("href"),
+                input: normalizeUrl(e.attr("href"), currentHost),
                 script: "gen.js"
             });
         });
@@ -53,7 +58,7 @@ function execute(url) {
         
         // Tìm li chứa "Lượt xem" và lấy số liệu
         let viewElements = doc.select(".list-info li");
-        viewElements.forEach(element => {
+        viewElements.forEach(function(element) {
             let nameText = element.select(".name").text();
             if (nameText && nameText.indexOf("Lượt xem") >= 0) {
                 let viewCount = element.select(".col-xs-8").text();
@@ -89,10 +94,10 @@ function execute(url) {
             genres: genres,
             comments: [{
                 title: "Bình luận",
-                input: BASE_URL + "/Comic/Services/CommentService.asmx/List?comicId=" + comicId + "&orderBy=0&chapterId=-1&parentId=0&token=" + token,
+                input: currentHost + "/Comic/Services/CommentService.asmx/List?comicId=" + comicId + "&orderBy=0&chapterId=-1&parentId=0&token=" + token,
                 script: "comment.js"
             }],
-            host: BASE_URL
+            host: currentHost
         });
     }
 

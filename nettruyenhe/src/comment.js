@@ -2,12 +2,17 @@ load('config.js');
 
 function execute(input, next) {
     if (!next) next = "1";
-    let response = fetch(input + "&pageNumber=" + next);
+    let result = fetchWithBackup(input + "&pageNumber=" + next);
+    if (!result) {
+        return null;
+    }
+    
+    let response = result.response;
     if (response.ok) {
         let json = response.json();
         let doc = Html.parse(json.response);
         let comments = [];
-        doc.select(".summary").forEach(e => {
+        doc.select(".summary").forEach(function(e) {
             comments.push({
                 name: e.select(".authorname").text(),
                 content: e.select(".comment-content").text(),
