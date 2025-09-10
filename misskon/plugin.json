@@ -1,7 +1,7 @@
 {
   "metadata": {
     "name": "misskon",
-    "author": "ustaezav",
+    "author": "hiimgyn",
     "version": 1,
     "source": "https://misskon.com",
     "regexp": "(www.)?misskon.com/.*",
