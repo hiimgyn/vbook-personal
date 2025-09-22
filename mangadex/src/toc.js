@@ -36,28 +36,30 @@ function execute(url) {
 }
 
 function loadChapterPart(url, offset, translatedLanguage) {
-    let response = fetch(url + "&offset=" + offset + "&limit=96" + translatedLanguage);
-    if (response.ok) {
-        let data = response.json();
-        let chapters = [];
-        data.data.forEach(item => {
-            if (item.type === "chapter") {
-                let attributes = item.attributes;
-                chapters.push({
-                    "id": item.id,
-                    "title": attributes.title,
-                    "chapter": attributes.chapter,
-                    "language": attributes.translatedLanguage
+    return customFetch(url + "&offset=" + offset + "&limit=96" + translatedLanguage)
+        .then(async response => {
+            if (response.ok) {
+                let data = await response.json();
+                let chapters = [];
+                data.data.forEach(item => {
+                    if (item.type === "chapter") {
+                        let attributes = item.attributes;
+                        chapters.push({
+                            "id": item.id,
+                            "title": attributes.title,
+                            "chapter": attributes.chapter,
+                            "language": attributes.translatedLanguage
+                        });
+                    }
                 });
+                let next = 0;
+                if (data.offset + data.limit < data.total) {
+                    next = data.offset + data.limit;
+                }
+                return {
+                    "next": next,
+                    "data": chapters,
+                };
             }
         });
-        let next = 0;
-        if (data.offset + data.limit < data.total) {
-            next = data.offset + data.limit;
-        }
-        return {
-            "next": next,
-            "data": chapters,
-        };
-    }
 }
