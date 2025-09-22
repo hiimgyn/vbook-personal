@@ -41,7 +41,7 @@
       "name": "Mangadex",
       "author": "hiimgyn",
       "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/mangadex/plugin.zip",
-      "version": 2,
+      "version": 3,
       "type": "comic",
       "locale": "vi_VN",
       "source": "https://mangadex.org",
