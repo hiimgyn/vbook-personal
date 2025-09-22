@@ -11,7 +11,6 @@ try {
 } catch (error) {
 }
 let API_URL = BASE_URL.replace("https://", "https://api.");
-// ...Không sử dụng require, DNS hoặc customFetch...
 
 function getDisplayLanguageData(value) {
     let lang = LANGUAGE.split(",");

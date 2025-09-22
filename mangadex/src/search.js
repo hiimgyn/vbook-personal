@@ -2,23 +2,21 @@ load("config.js");
 
 function execute(key, page) {
     if (!page) page = 0;
-    var response = fetch(API_URL + "/manga?title=" + key + "&limit=20&offset=" + page + "&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&includes[]=cover_art&order[relevance]=desc");
+    let response = fetch(API_URL + "/manga?title=" + key + "&limit=20&offset=" + page + "&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&includes[]=cover_art&order[relevance]=desc");
+
     if (response.ok) {
-        var data = response.json();
-        var books = [];
-        var next = "";
+        let data = response.json();
+        let books = [];
+        let next = "";
         if (data.offset + data.limit < data.total) {
             next = data.offset + data.limit;
         }
-        data.data.forEach(function(item) {
-            var bookId = item.id;
-            var relationships = item.relationships;
-            var cover = null;
-            for (var i = 0; i < relationships.length; i++) {
-                if (relationships[i].type === "cover_art") {
-                    cover = BASE_URL + "/covers/" + bookId + "/" + relationships[i].attributes.fileName + ".256.jpg";
-                    break;
-                }
+        data.data.forEach(item => {
+            let bookId = item.id;
+            let relationships = item.relationships;
+            let cover = relationships.find(item => item.type === "cover_art");
+            if (cover) {
+                cover = BASE_URL + "/covers/" + bookId + "/" + cover.attributes.fileName + ".256.jpg";
             }
             books.push({
                 name: getDisplayLanguageData(item.attributes.title),
@@ -27,7 +25,10 @@ function execute(key, page) {
                 host: BASE_URL
             });
         });
+
         return Response.success(books, next + "");
     }
+
     return null;
+
 }
