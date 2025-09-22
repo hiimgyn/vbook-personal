@@ -26,7 +26,28 @@
       "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/nettruyenhe/icon.png",
       "description": "Đọc truyện trên các trang NetTruyen"
     },
-
+    {
+      "name": "Truyện Full",
+      "author": "hiimgyn",
+      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/truyenfull/plugin.zip",
+      "version": 2,
+      "type": "novel",
+      "locale": "vi_VN",
+      "source": "https://truyenfull.com",
+      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/truyenfull/icon.png",
+      "description": "Đọc truyện trên trang Truyện Full"
+    },
+        {
+      "name": "Mangadex",
+      "author": "hiimgyn",
+      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/mangadex/plugin.zip",
+      "version": 2,
+      "type": "comic",
+      "locale": "vi_VN",
+      "source": "https://mangadex.org",
+      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/mangadex/icon.png",
+      "description": "Đọc truyện trên trang Mangadex"
+    },
     {
       "name": "Say Hentai",
       "author": "hiimgyn",
