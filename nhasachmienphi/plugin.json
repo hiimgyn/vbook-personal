@@ -2,7 +2,7 @@
   "metadata": {
     "name": "Nhà Sách Miễn Phí",
     "author": "hiimgyn",
-    "version": 1,
+    "version": 2,
     "source": "https://nhasachmienphi.com",
     "regexp": "(www.)?nhasachmienphi.(.*?)/[^/]+.html$",
     "description": "Đọc truyện trên trang Nhà Sách Miễn Phí",

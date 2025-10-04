@@ -52,8 +52,6 @@ function execute(url) {
 				description = doc.select('meta[property="og:description"]').attr("content");
 			}
 		}
-		// Lấy chi tiết
-		let detail = doc.select(".book_info .txt, .detail-info, .entry-content, .detail").first().html();
 		// Kiểm tra trạng thái
 		let ongoing = false;
 		let statusText = doc.select(".book_info .txt, .status, .entry-status").first().text();
@@ -80,7 +78,7 @@ function execute(url) {
 			downloadLinks.push("MOBI: " + mobiLink.attr("href"));
 		}
 		
-		let note = downloadLinks.length > 0 ? downloadLinks.join("\n") : "";
+		let detail = downloadLinks.length > 0 ? downloadLinks.join("\n") : "";
 
 		return Response.success({
 			name: name,
@@ -90,7 +88,6 @@ function execute(url) {
 			description: description,
 			detail: detail,
 			ongoing: ongoing,
-			note: note,
 		});
 	}
 	return null;
