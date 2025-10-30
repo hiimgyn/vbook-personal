@@ -60,18 +60,6 @@
       "description": "Đọc truyện trên trang Mangadex"
     },
     {
-      "name": "HentaiVN",
-      "author": "hiimgyn",
-      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/hentaivn/plugin.zip",
-      "version": 1,
-      "source": "https://hentaihvn.tv",
-      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/hentaivn/icon.png",
-      "description": "Đọc truyện trên trang HentaiVN",
-      "type": "comic",
-      "locale": "vi_VN",
-      "tag": "nsfw"
-    },
-    {
       "name": "Say Hentai",
       "author": "hiimgyn",
       "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/sayhentai/plugin.zip",
