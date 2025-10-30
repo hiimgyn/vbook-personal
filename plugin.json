@@ -19,10 +19,10 @@
       "name": "NetTruyen",
       "author": "hiimgyn",
       "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/nettruyen/plugin.zip",
-      "version": 2,
+      "version": 3,
       "type": "comic",
       "locale": "vi_VN",
-      "source": "https://nettruyenhe.com",
+      "source": "https://nettruyenviet1.com",
       "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/nettruyen/icon.png",
       "description": "Đọc truyện trên các trang NetTruyen"
     },
