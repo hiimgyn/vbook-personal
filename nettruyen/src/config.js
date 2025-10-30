@@ -1,6 +1,6 @@
-let BASE_URL = 'https://www.nettruyenhe.com';
+let BASE_URL = 'https://nettruyenviet1.com';
 let BACKUP_URLS = [
-    'https://nettruyenvia.com'
+    'https://www.nettruyenhe.com'
 ];
 
 // Tất cả URLs có thể sử dụng (bao gồm BASE_URL)

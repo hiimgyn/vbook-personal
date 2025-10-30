@@ -18,12 +18,12 @@
     {
       "name": "NetTruyen",
       "author": "hiimgyn",
-      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/nettruyenhe/plugin.zip",
+      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/nettruyen/plugin.zip",
       "version": 2,
       "type": "comic",
       "locale": "vi_VN",
       "source": "https://nettruyenhe.com",
-      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/nettruyenhe/icon.png",
+      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/nettruyen/icon.png",
       "description": "Đọc truyện trên các trang NetTruyen"
     },
     {
@@ -58,6 +58,18 @@
       "source": "https://mangadex.org",
       "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/mangadex/icon.png",
       "description": "Đọc truyện trên trang Mangadex"
+    },
+    {
+      "name": "HentaiVN",
+      "author": "hiimgyn",
+      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/hentaivn/plugin.zip",
+      "version": 1,
+      "source": "https://hentaihvn.tv",
+      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/hentaivn/icon.png",
+      "description": "Đọc truyện trên trang HentaiVN",
+      "type": "comic",
+      "locale": "vi_VN",
+      "tag": "nsfw"
     },
     {
       "name": "Say Hentai",
