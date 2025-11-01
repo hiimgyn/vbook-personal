@@ -1,8 +1,21 @@
-function bypass(url, doc) {
-    var cookie = doc.html().match(/document.cookie="(.*?)"/);
-    if (cookie) {
-        cookie = cookie[1];
-        doc = Http.get(url).headers({"Cookie": cookie}).html();
-    }
-    return doc
+function enhancedBypass(url, doc) {
+    // Lấy cookie từ nội dung HTML nếu có
+    var cookieMatch = doc.html().match(/document\.cookie="(.*?)"/);
+    var cookies = cookieMatch ? cookieMatch[1] : "";
+
+    // Gửi lại yêu cầu HTTP với headers bao gồm cookies
+    doc = Http.get(url)
+        .headers({
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
+            "Referer": url,
+            "Cookie": cookies
+        })
+        .html();
+
+    // Loại bỏ các script gây chặn
+    doc.select("script").forEach(function(script) {
+        script.remove();
+    });
+
+    return doc;
 }
