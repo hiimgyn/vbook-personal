@@ -1,9 +1,11 @@
 load('config.js');
 
-// Cache regex patterns for better performance
 const COMIC_ID_REGEX_1 = /gOpts\.comicId\s*=\s*['"]?(\d+)['"]?/;
 const COMIC_ID_REGEX_2 = /gOpts\.comicId=(.*?);/;
 const ID_SUFFIX_REGEX = /-\d+$/;
+const CHAPTER_NUM_REGEX = /[^\d.]/g;
+
+const CHAPTER_SELECTOR = "div.list-chapter li.row .chapter a";
 
 function execute(url) {
     let result = fetchWithBackup(url);
@@ -15,63 +17,56 @@ function execute(url) {
 }
 
 function executeWithResponse(response, url, currentHost) {
+    if (!response.ok) {
+        return null;
+    }
 
     const doc = response.html();
     const htmlContent = doc.html();
 
-    // Extract comicId more efficiently
-    let comicId = "";
     let match = COMIC_ID_REGEX_1.exec(htmlContent);
-    if (match) {
-        comicId = match[1];
-    } else {
+    if (!match) {
         match = COMIC_ID_REGEX_2.exec(htmlContent);
-        if (match) {
-            comicId = match[1];
-        }
     }
+    const comicId = match ? match[1] : "";
 
     if (comicId) {
-        // Pre-calculate URL parts to avoid repeated split operations
-        const urlSlug = url.split("/").pop();
+        const lastSlashIdx = url.lastIndexOf('/');
+        const urlSlug = url.substring(lastSlashIdx + 1);
         const apiUrl = `${currentHost}/Comic/Services/ComicService.asmx/ChapterList?comicId=${comicId}&slug=${urlSlug}`;
         const apiResult = fetchWithBackup(apiUrl);
-        const apiResponse = apiResult ? apiResult.response : null;
-        
-        if (apiResponse.ok) {
-            const json = apiResponse.json();
 
-            if (json.data && Array.isArray(json.data)) {
-                // Pre-calculate comic slug once
+        if (apiResult && apiResult.response.ok) {
+            const json = apiResult.response.json();
+
+            if (json.data && json.data.length > 0) {
                 const comicSlug = urlSlug.replace(ID_SUFFIX_REGEX, '');
+                const baseChapterUrl = `${currentHost}/truyen-tranh/${comicSlug}/`;
 
-                // Sort chapters by chapter number (ascending order - từ bé đến lớn)
-                const sortedData = json.data.sort((a, b) => {
-                    const aNum = parseFloat(a.chapter_name.replace(/[^\d.]/g, '')) || 0;
-                    const bNum = parseFloat(b.chapter_name.replace(/[^\d.]/g, '')) || 0;
-                    return aNum - bNum;
+                const chapters = parallelSortAndMap(json.data, chapter => {
+                    const chapterNum = parseFloat(chapter.chapter_name.replace(CHAPTER_NUM_REGEX, '')) || 0;
+                    return {
+                        name: chapter.chapter_name,
+                        url: `${baseChapterUrl}${chapter.chapter_slug}/${chapter.chapter_id}`,
+                        host: currentHost,
+                        chapterNum
+                    };
                 });
-
-                // Use map instead of forEach + push for better performance
-                const chapters = sortedData.map(chapter => ({
-                    name: chapter.chapter_name,
-                    url: `${currentHost}/truyen-tranh/${comicSlug}/${chapter.chapter_slug}/${chapter.chapter_id}`,
-                    host: currentHost
-                }));
 
                 return Response.success(chapters);
             }
         }
     }
 
-    // Fallback: Parse HTML directly if API doesn't work
-    const elements = doc.select("div.list-chapter li.row .chapter a");
+    const elements = doc.select(CHAPTER_SELECTOR);
     const elementsSize = elements.size();
+    
+    if (elementsSize === 0) {
+        return Response.success([]);
+    }
 
-    // Pre-allocate array with known size for better performance
     const data = new Array(elementsSize);
 
-    // Extract chapters in reverse order (vì HTML thường list từ mới nhất)
     for (let i = 0; i < elementsSize; i++) {
         const element = elements.get(elementsSize - 1 - i);
         data[i] = {
@@ -82,4 +77,9 @@ function executeWithResponse(response, url, currentHost) {
     }
 
     return Response.success(data);
+}
+
+function parallelSortAndMap(data, mapFn) {
+    const mappedData = data.map(mapFn);
+    return mappedData.sort((a, b) => a.chapterNum - b.chapterNum);
 }

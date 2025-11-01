@@ -8,11 +8,11 @@ function execute(url) {
     
     let response = result.response;
     let currentHost = result.currentHost;
-    
+
     if (response.ok) {
         let doc = response.html();
-        
-        // Lấy ảnh bìa từ .col-image img (cấu trúc: .col-xs-4.col-image img)
+
+        // Lấy ảnh bìa từ .col-image img
         let coverImg = doc.select(".col-image img").first().attr("src");
         if (!coverImg) {
             coverImg = doc.select(".detail-info img").first().attr("src");
@@ -20,16 +20,18 @@ function execute(url) {
         if (coverImg && coverImg.startsWith("//")) {
             coverImg = "https:" + coverImg;
         }
-        
-        // Lấy thể loại từ .kind .col-xs-8 a (cấu trúc: li.kind > p.col-xs-8 > a)
+
+        // Lấy thể loại từ .kind .col-xs-8 a
         let genres = [];
-        doc.select(".kind .col-xs-8 a").forEach(function(e) {
+        const genreElements = doc.select(".kind .col-xs-8 a"); // Lấy tất cả các phần tử một lần
+        for (let i = 0; i < genreElements.size(); i++) {
+            const e = genreElements.get(i);
             genres.push({
                 title: e.text(),
                 input: normalizeUrl(e.attr("href"), currentHost),
                 script: "gen.js"
             });
-        });
+        }
 
         // Lấy comicId và token từ script
         let comicId, token;
@@ -42,7 +44,7 @@ function execute(url) {
                 comicId = "";
             }
         }
-        
+
         try {
             token = /window\.token\s*=\s*['"]([^'"]+)['"]/.exec(doc.html())[1];
         } catch (e) {
@@ -55,8 +57,6 @@ function execute(url) {
 
         // Lấy thông tin chi tiết và lượt xem
         let detail = doc.select("time.small").first().text();
-        
-        // Tìm li chứa "Lượt xem" và lấy số liệu
         let viewElements = doc.select(".list-info li");
         viewElements.forEach(function(element) {
             let nameText = element.select(".name").text();
@@ -73,13 +73,21 @@ function execute(url) {
         if (!author) {
             author = "Đang cập nhật";
         }
-        
-        // Lấy mô tả từ .detail-content .shortened
-        let description = doc.select(".detail-content .shortened").html();
-        if (!description) {
-            description = doc.select(".detail-content p").html();
+
+        // Lấy mô tả từ .detail-content .shortened, chỉ lấy "Tóm tắt nội dung truyện"
+        let description = "";
+        const descriptionElement = doc.select(".detail-content .shortened").first();
+        if (descriptionElement) {
+            const paragraphs = descriptionElement.select("p");
+            for (let i = 0; i < paragraphs.size(); i++) {
+                const paragraph = paragraphs.get(i);
+                if (paragraph.text().includes("Tóm tắt nội dung truyện")) {
+                    description = paragraph.text();
+                    break;
+                }
+            }
         }
-        
+
         // Kiểm tra trạng thái từ li.status .col-xs-8
         let statusText = doc.select(".status .col-xs-8").first().text();
         let ongoing = statusText && statusText.indexOf("Đang tiến hành") >= 0;
