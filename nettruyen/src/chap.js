@@ -2,12 +2,21 @@ load('bypass.js');
 load('config.js');
 
 function convertToViestorage(url) {
+    // Chỉ convert nếu URL chứa kcgsbok, không động vào domain khác
+    if (!url.includes('kcgsbok')) {
+        return url;  // Giữ nguyên viestorage, nettruyenviet, v.v.
+    }
+    
+    // Case 1: image4.kcgsbok.com → i4.viestorage.com
     if (url.includes('image') && url.includes('kcgsbok.com')) {
         return url.replace(/image(\d+)\.kcgsbok\.com/, 'i$1.viestorage.com');
     }
+    
+    // Case 2: kcgsbok.com → i4.viestorage.com
     if (url.includes('kcgsbok.com')) {
         return url.replace(/kcgsbok\.com/, 'i4.viestorage.com');
     }
+    
     return url;
 }
 
