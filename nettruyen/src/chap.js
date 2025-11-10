@@ -1,19 +1,14 @@
 load('bypass.js');
 load('config.js');
 
-function normalizeUrl(url) {
-    return url && url.startsWith("//") ? "https:" + url : url;
-}
-
-function createFallbackUrls(mainUrl) {
-    let fallbackUrls = [];
-    let vieStorageUrl = mainUrl.replace(/image(\d+)\.kcgsbok\.com/, 'i$1.viestorage.com');
-    
-    if (vieStorageUrl !== mainUrl) {
-        fallbackUrls.push(vieStorageUrl);
+function convertToViestorage(url) {
+    if (url.includes('image') && url.includes('kcgsbok.com')) {
+        return url.replace(/image(\d+)\.kcgsbok\.com/, 'i$1.viestorage.com');
     }
-    
-    return fallbackUrls;
+    if (url.includes('kcgsbok.com')) {
+        return url.replace(/kcgsbok\.com/, 'i4.viestorage.com');
+    }
+    return url;
 }
 
 function execute(url) {
@@ -55,35 +50,47 @@ function execute(url) {
         let img = e.attr("src") || e.attr("data-src") || e.attr("data-original");
 
         if (img) {
-            img = normalizeUrl(img);
+            if (img.startsWith("//")) {
+                img = "https:" + img;
+            }
 
-            let fallbackUrls = [];
+            let mainLink = convertToViestorage(img);
             
-            let vieStorageFallbacks = createFallbackUrls(img);
-            fallbackUrls = fallbackUrls.concat(vieStorageFallbacks);
+            let fallbackUrls = [];
+            let addedUrls = new Set();  
+            
+            function addFallback(url) {
+                if (url && url !== mainLink && !addedUrls.has(url)) {
+                    fallbackUrls.push(url);
+                    addedUrls.add(url);
+                }
+            }
+            
+            if (img !== mainLink) {
+                addFallback(img);
+            }
             
             let sv1 = e.attr("data-sv1");
             if (sv1) {
-                fallbackUrls.push(normalizeUrl(sv1));
+                if (sv1.startsWith("//")) sv1 = "https:" + sv1;
+                let vieSv1 = convertToViestorage(sv1);
+                addFallback(vieSv1);
+                addFallback(sv1);
             }
             
             let sv2 = e.attr("data-sv2");
             if (sv2) {
-                fallbackUrls.push(normalizeUrl(sv2));
-            }
-
-            let imageReferer = referer;
-            if (img.includes("viestorage.com")) {
-                imageReferer = "https://nettruyenhe.com/";
-            } else if (img.includes("kcgsbok.com")) {
-                imageReferer = "https://nettruyenviet1.com/";
+                if (sv2.startsWith("//")) sv2 = "https:" + sv2;
+                let vieSv2 = convertToViestorage(sv2);
+                addFallback(vieSv2);
+                addFallback(sv2);
             }
 
             data.push({
-                link: img,
+                link: mainLink,  
                 fallback: fallbackUrls,
                 host: currentHost,
-                referer: imageReferer,
+                referer: "https://nettruyenhe.com/",  
                 alternativeReferers: alternativeReferers
             });
         }
