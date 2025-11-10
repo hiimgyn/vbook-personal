@@ -2,7 +2,7 @@
   "metadata": {
     "name": "NetTruyen",
     "author": "hiimgyn",
-    "version": 7,
+    "version": 8,
     "source": "https://nettruyenviet1.com/",
     "regexp": "(www.)?(nettruyenviet1|nettruyenhe).*?/truyen-tranh/[0-9a-z-]+/?$",
     "description": "Đọc truyện trên các trang NetTruyen",

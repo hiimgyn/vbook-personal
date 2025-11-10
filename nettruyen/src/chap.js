@@ -1,23 +1,36 @@
 load('bypass.js');
 load('config.js');
 
-function convertToViestorage(url) {
-    // Chỉ convert nếu URL chứa kcgsbok, không động vào domain khác
-    if (!url.includes('kcgsbok')) {
-        return url;  // Giữ nguyên viestorage, nettruyenviet, v.v.
+function createFallbackUrls(mainUrl, dataSv1, dataSv2) {
+    let fallbackUrls = [];
+    let addedUrls = new Set([mainUrl]);  
+    
+    function addFallback(url) {
+        if (url && !addedUrls.has(url)) {
+            fallbackUrls.push(url);
+            addedUrls.add(url);
+        }
     }
     
-    // Case 1: image4.kcgsbok.com → i4.viestorage.com
-    if (url.includes('image') && url.includes('kcgsbok.com')) {
-        return url.replace(/image(\d+)\.kcgsbok\.com/, 'i$1.viestorage.com');
+    if (dataSv1) {
+        if (dataSv1.startsWith("//")) {
+            dataSv1 = "https:" + dataSv1;
+        }
+        addFallback(dataSv1);
     }
     
-    // Case 2: kcgsbok.com → i4.viestorage.com
-    if (url.includes('kcgsbok.com')) {
-        return url.replace(/kcgsbok\.com/, 'i4.viestorage.com');
+    if (dataSv2) {
+        if (dataSv2.startsWith("//")) {
+            dataSv2 = "https:" + dataSv2;
+        }
+        addFallback(dataSv2);
     }
     
-    return url;
+    if (mainUrl.indexOf("viestorage.com") > -1) {
+        addFallback(mainUrl.replace("viestorage.com", "vieestorage.com"));
+    }
+    
+    return fallbackUrls;
 }
 
 function execute(url) {
@@ -38,12 +51,6 @@ function execute(url) {
         return null;
     }
 
-    let referer = "https://nettruyenhe.com/";
-    
-    let alternativeReferers = [
-        "https://nettruyenviet1.com/",
-    ];
-
     let pageImages = doc.select(".page-chapter img");
     if (pageImages.size() === 0) {
         pageImages = doc.select(".reading-detail img");
@@ -57,50 +64,20 @@ function execute(url) {
 
     pageImages.forEach(function(e) {
         let img = e.attr("src") || e.attr("data-src") || e.attr("data-original");
+        let dataSv1 = e.attr('data-sv1');
+        let dataSv2 = e.attr('data-sv2');
 
         if (img) {
             if (img.startsWith("//")) {
                 img = "https:" + img;
             }
 
-            let mainLink = convertToViestorage(img);
-            
-            let fallbackUrls = [];
-            let addedUrls = new Set();  
-            
-            function addFallback(url) {
-                if (url && url !== mainLink && !addedUrls.has(url)) {
-                    fallbackUrls.push(url);
-                    addedUrls.add(url);
-                }
-            }
-            
-            if (img !== mainLink) {
-                addFallback(img);
-            }
-            
-            let sv1 = e.attr("data-sv1");
-            if (sv1) {
-                if (sv1.startsWith("//")) sv1 = "https:" + sv1;
-                let vieSv1 = convertToViestorage(sv1);
-                addFallback(vieSv1);
-                addFallback(sv1);
-            }
-            
-            let sv2 = e.attr("data-sv2");
-            if (sv2) {
-                if (sv2.startsWith("//")) sv2 = "https:" + sv2;
-                let vieSv2 = convertToViestorage(sv2);
-                addFallback(vieSv2);
-                addFallback(sv2);
-            }
+            let fallbackUrls = createFallbackUrls(img, dataSv1, dataSv2);
 
             data.push({
-                link: mainLink,  
+                link: img,  
                 fallback: fallbackUrls,
-                host: currentHost,
-                referer: "https://nettruyenhe.com/",  
-                alternativeReferers: alternativeReferers
+                host: currentHost
             });
         }
     });
