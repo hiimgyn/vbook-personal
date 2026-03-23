@@ -6,7 +6,8 @@ function execute(url) {
     let doc = bypass(url, fetch(url).html());
     if (doc) {
         // support different html image patterns: lazy, lozad, regular
-        let imgs = doc.select(".chapter_content img.lazy, .chapter_content img.lozad, .chapter_content img");
+        // NetTruyen uses `.reading-detail` / `.page-chapter` containers, not `.chapter_content`
+        let imgs = doc.select(".reading-detail img.lazy, .reading-detail img.lozad, .reading-detail img");
         let data = [];
         for (let i = 0; i < imgs.size(); i++) {
             let e = imgs.get(i);
@@ -35,12 +36,12 @@ function execute(url) {
             }
 
             if (link !== null) {
-                // host-specific replacements to use more stable cdn mirrors
-                if (link.indexOf("kcgsbok.com") > -1 || link.indexOf("image4.kcgsbok.com") > -1) {
-                    link = link.replace(/image4\.kcgsbok\.com|kcgsbok\.com/g, "i4.viestorage.com");
-                } else if (link.indexOf("vieestorage.com") > -1 || link.indexOf("viestorage.com") > -1) {
-                    // prefer the i4.viestorage host for consistency
-                    link = link.replace(/vieestorage\.com|viestorage\.com/g, "i4.viestorage.com");
+                // Prefer image4.kcgsbok.com as the primary host for kcg/viestorage images
+                // Normalize any viestorage or kcgsbok variants to image4.kcgsbok.com
+                if (link.indexOf("vieestorage.com") > -1 || link.indexOf("viestorage.com") > -1 || link.indexOf("i4.viestorage.com") > -1) {
+                    link = link.replace(/vieestorage\.com|viestorage\.com|i4\.viestorage\.com/g, "image4.kcgsbok.com");
+                } else if (link.indexOf("kcgsbok.com") > -1 || link.indexOf("image4.kcgsbok.com") > -1) {
+                    link = link.replace(/image4\.kcgsbok\.com|kcgsbok\.com/g, "image4.kcgsbok.com");
                 }
             }
 
