@@ -59,7 +59,7 @@ function execute(url) {
     let data = [];
 
     pageImages.forEach(function(e) {
-        let img = e.attr("src") || e.attr("data-src") || e.attr("data-original");
+        let img = e.attr('data-src') || e.attr('data-original') || e.attr('src');
         if (!img) return;
         img = normalizeUrl(img, url);
 

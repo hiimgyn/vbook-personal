@@ -1,4 +1,4 @@
-let BASE_URL = 'https://nettruyenviet1.com';
+let BASE_URL = 'https://nettruyenviet2.com';
 let BACKUP_URLS = [
     'https://nettruyenhe.com'
 ];
@@ -89,7 +89,7 @@ function normalizeUrl(url, currentHost) {
     
     if (url.startsWith('http')) {
         return url
-            .replace(/https?:\/\/(?:www\.)?nettruyenviet1\.com/, BASE_URL)
+            .replace(/https?:\/\/(?:www\.)?nettruyenviet2\.com/, BASE_URL)
             .replace(/https?:\/\/(?:www\.)?nettruyenhe\.com/, BASE_URL);
     }
     
