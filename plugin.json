@@ -63,10 +63,10 @@
       "name": "Say Hentai",
       "author": "hiimgyn",
       "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/sayhentai/plugin.zip",
-      "version": 3,
-      "source": "https://sayhentai.one",
+      "version": 4,
+      "source": "https://sayhentai.vc",
       "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/sayhentai/icon.png",
-      "description": "Đọc truyện trên trang Sayhentai.one",
+      "description": "Đọc truyện trên trang Sayhentai.vc",
       "type": "comic",
       "locale": "vi_VN",
       "tag": "nsfw"
