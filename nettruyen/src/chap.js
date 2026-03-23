@@ -35,33 +35,8 @@ function createFallbackUrls(mainUrl, dataSv1, dataSv2) {
     return fallbackUrls;
 }
 
-// Hosts to prioritize when available (user-requested host)
-const PRIORITY_HOSTS = ['image4.kcgsbok.com'];
-// Limit number of fallback URLs to avoid extra work and long retries
-const MAX_FALLBACKS = 3;
-
-function prioritizeCandidate(candidates) {
-    if (!candidates || candidates.length === 0) return null;
-    for (let i = 0; i < candidates.length; i++) {
-        let u = candidates[i];
-        if (!u) continue;
-        for (let j = 0; j < PRIORITY_HOSTS.length; j++) {
-            if (u.indexOf(PRIORITY_HOSTS[j]) > -1) return u;
-        }
-    }
-    return null;
-}
-
-function uniqueExcept(exclude, list) {
-    let seen = new Set();
-    let out = [];
-    for (let i = 0; i < list.length; i++) {
-        let u = list[i];
-        if (!u || u === exclude) continue;
-        if (!seen.has(u)) { seen.add(u); out.push(u); }
-    }
-    return out;
-}
+// Prefer this host when present in candidates
+const PREFERRED_HOST = 'image4.kcgsbok.com';
 
 function execute(url) {
     let result = fetchWithBackup(url);
@@ -86,44 +61,37 @@ function execute(url) {
 
     let data = [];
 
-    // Use a plain for-loop for slightly better performance than forEach
+    // Simplified loop similar to truyenqq: prefer PREFERRED_HOST when available
     for (let i = 0; i < pageImages.size(); i++) {
         let e = pageImages.get(i);
+        let src = e.attr('data-src') || e.attr('data-original') || e.attr('src');
+        if (!src) continue;
+        src = normalizeUrl(src, url);
 
-        // Read raw attributes first (avoid normalizing unless needed)
-        let rawImg = e.attr('data-src') || e.attr('data-original') || e.attr('src');
-        if (!rawImg) continue;
+        let sv1 = e.attr('data-sv1');
+        let sv2 = e.attr('data-sv2');
 
-        let dataSv1 = e.attr('data-sv1');
-        let dataSv2 = e.attr('data-sv2');
+        let fallbackUrls = createFallbackUrls(src, sv1, sv2);
+        let candidates = [src].concat(fallbackUrls || []);
 
-        // Quick check for prioritized host among raw candidates (cheap substring checks)
-        let prioritizedRaw = prioritizeCandidate([rawImg, dataSv1, dataSv2]);
-
-        if (prioritizedRaw) {
-            // Normalize only the prioritized URL and a few fallbacks
-            let pri = normalizeUrl(prioritizedRaw, url);
-
-            // Build limited fallback list by normalizing at most MAX_FALLBACKS other candidates
-            let newFallback = [];
-            let added = new Set();
-            for (let j = 0; j < 3; j++) {
-                let cand = (j === 0) ? rawImg : (j === 1 ? dataSv1 : dataSv2);
-                if (!cand) continue;
-                if (cand === prioritizedRaw) continue;
-                let n = normalizeUrl(cand, pri || url);
-                if (n && !added.has(n)) { newFallback.push(n); added.add(n); }
-                if (newFallback.length >= MAX_FALLBACKS) break;
-            }
-
-            data.push({ link: pri, fallback: newFallback, host: currentHost });
-        } else {
-            // No prioritized host found — normalize main image once and compute fallbacks
-            let main = normalizeUrl(rawImg, url);
-            let fallbackUrls = createFallbackUrls(main, dataSv1, dataSv2);
-            if (fallbackUrls.length > MAX_FALLBACKS) fallbackUrls = fallbackUrls.slice(0, MAX_FALLBACKS);
-            data.push({ link: main, fallback: fallbackUrls, host: currentHost });
+        // choose preferred host if present
+        let chosen = src;
+        for (let j = 0; j < candidates.length; j++) {
+            let u = candidates[j];
+            if (!u) continue;
+            if (u.indexOf(PREFERRED_HOST) > -1) { chosen = u; break; }
         }
+
+        // build fallback list excluding chosen, keep unique order
+        let seen = new Set();
+        let finalFallback = [];
+        for (let j = 0; j < candidates.length; j++) {
+            let u = candidates[j];
+            if (!u || u === chosen) continue;
+            if (!seen.has(u)) { seen.add(u); finalFallback.push(u); }
+        }
+
+        data.push({ link: chosen, fallback: finalFallback, host: currentHost });
     }
 
     return Response.success(data);

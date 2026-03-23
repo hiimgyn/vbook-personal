@@ -1,6 +1,6 @@
 let BASE_URL = 'https://nettruyen.work';
 let BACKUP_URLS = [
-    'https://nettruyenhe.com'
+    'https://nettruyen.africa'
 ];
 
 let ALL_HOSTS = [BASE_URL].concat(BACKUP_URLS);
@@ -90,7 +90,7 @@ function normalizeUrl(url, currentHost) {
     if (url.startsWith('http')) {
         return url
             .replace(/https?:\/\/(?:www\.)?nettruyen\.work/, BASE_URL)
-            .replace(/https?:\/\/(?:www\.)?nettruyenhe\.com/, BASE_URL);
+            .replace(/https?:\/\/(?:www\.)?nettruyen\.africa/, BASE_URL);
     }
     
     return BASE_URL + (url.startsWith('/') ? url : '/' + url);
