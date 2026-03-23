@@ -8,10 +8,10 @@
       "name": "Truyện QQ",
       "author": "hiimgyn",
       "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/truyenqq/plugin.zip",
-      "version": 2,
+      "version": 3,
       "type": "comic",
       "locale": "vi_VN",
-      "source": "https://truyenqqgo.com",
+      "source": "https://truyenqqno.com",
       "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/truyenqq/icon.png",
       "description": "Đọc truyện trên trang Truyện QQ"
     },
