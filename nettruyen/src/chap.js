@@ -40,8 +40,8 @@ function execute(url) {
                 // Normalize any viestorage or kcgsbok variants to image4.kcgsbok.com
                 if (link.indexOf("vieestorage.com") > -1 || link.indexOf("viestorage.com") > -1 || link.indexOf("i4.viestorage.com") > -1) {
                     link = link.replace(/vieestorage\.com|viestorage\.com|i4\.viestorage\.com/g, "image4.kcgsbok.com");
-                } else if (link.indexOf("kcgsbok.com") > -1 || link.indexOf("image4.kcgsbok.com") > -1) {
-                    link = link.replace(/image4\.kcgsbok\.com|kcgsbok\.com/g, "image4.kcgsbok.com");
+                } else if (link.indexOf("kcgsbok.com") > -1 || /image[1-10]\.kcgsbok\.com/.test(link) || link.indexOf("image4.kcgsbok.com") > -1) {
+                    link = link.replace(/image[1-10]\.kcgsbok\.com|kcgsbok\.com/g, "image4.kcgsbok.com");
                 }
             }
 
