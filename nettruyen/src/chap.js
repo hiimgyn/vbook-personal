@@ -32,7 +32,16 @@ function execute(url) {
             let fallback = [];
             for (let j = 0; j < srcCandidates.length; j++) {
                 let v = srcCandidates[j];
-                if (v && fallback.indexOf(v) === -1) fallback.push(v);
+                if (v) {
+                    // normalize kcgsbok / vieestorage hosts in fallback entries
+                    let nv = v;
+                    if (nv.indexOf("vieestorage.com") > -1 || nv.indexOf("viestorage.com") > -1 || nv.indexOf("i4.viestorage.com") > -1) {
+                        nv = nv.replace(/vieestorage\.com|viestorage\.com|i4\.viestorage\.com/g, "image4.kcgsbok.com");
+                    } else if (nv.indexOf("kcgsbok.com") > -1 || /image[1-4]\.kcgsbok\.com/.test(nv) || nv.indexOf("image4.kcgsbok.com") > -1) {
+                        nv = nv.replace(/image[1-4]\.kcgsbok\.com|kcgsbok\.com/g, "image4.kcgsbok.com");
+                    }
+                    if (fallback.indexOf(nv) === -1) fallback.push(nv);
+                }
             }
 
             if (link !== null) {
