@@ -2,7 +2,7 @@
   "metadata": {
     "name": "NetTruyen",
     "author": "hiimgyn",
-    "version": 18,
+    "version": 19,
     "source": "https://nettruyen.work/",
     "regexp": "(www.)?(nettruyen|nettruyen).*?/truyen-tranh/[0-9a-z-]+/?$",
     "description": "Đọc truyện trên các trang NetTruyen",

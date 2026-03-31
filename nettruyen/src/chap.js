@@ -9,6 +9,35 @@ function execute(url) {
         // NetTruyen uses `.reading-detail` / `.page-chapter` containers, not `.chapter_content`
         let imgs = doc.select(".reading-detail img.lazy, .reading-detail img.lozad, .reading-detail img");
         let data = [];
+        // helper: normalize known image hosts and collapse duplicate subdomains
+        function normalizeUrl(u) {
+            if (!u) return u;
+            // ensure protocol for protocol-relative URLs
+            if (u.indexOf('http') !== 0) u = u.replace(/^\/\//, 'https://');
+
+            // normalize viestorage variants to canonical image4 host
+            if (/vieestorage\.com|viestorage\.com|i4\.viestorage\.com/.test(u)) {
+                u = u.replace(/(?:https?:)?(?:\/\/)?(?:[^\/]*)?(?:vieestorage\.com|viestorage\.com|i4\.viestorage\.com)/, 'https://image4.kcgsbok.com');
+                return u;
+            }
+
+            // handle kcgsbok hosts with possible repeated imageN prefixes
+            if (/kcgsbok\.com/.test(u)) {
+                // find all imageN occurrences, prefer the last one if present
+                let imgs = u.match(/image\d+/g);
+                if (imgs && imgs.length > 0) {
+                    let last = imgs[imgs.length - 1];
+                    u = u.replace(/(?:https?:)?(?:\/\/)?(?:[^\/]*)?(?:image(?:\d+\.)+kcgsbok\.com|kcgsbok\.com)/, 'https://' + last + '.kcgsbok.com');
+                    return u;
+                }
+                // no imageN prefix found, default to image4.kcgsbok.com
+                u = u.replace(/(?:https?:)?(?:\/\/)?(?:[^\/]*)?kcgsbok\.com/, 'https://image4.kcgsbok.com');
+                return u;
+            }
+
+            return u;
+        }
+
         for (let i = 0; i < imgs.size(); i++) {
             let e = imgs.get(i);
             // gather possible sources in priority order
@@ -33,25 +62,14 @@ function execute(url) {
             for (let j = 0; j < srcCandidates.length; j++) {
                 let v = srcCandidates[j];
                 if (v) {
-                    // normalize kcgsbok / vieestorage hosts in fallback entries
-                    let nv = v;
-                    if (nv.indexOf("vieestorage.com") > -1 || nv.indexOf("viestorage.com") > -1 || nv.indexOf("i4.viestorage.com") > -1) {
-                        nv = nv.replace(/vieestorage\.com|viestorage\.com|i4\.viestorage\.com/g, "image4.kcgsbok.com");
-                    } else if (nv.indexOf("kcgsbok.com") > -1 || /image[1-4]\.kcgsbok\.com/.test(nv) || nv.indexOf("image4.kcgsbok.com") > -1) {
-                        nv = nv.replace(/image[1-4]\.kcgsbok\.com|kcgsbok\.com/g, "image4.kcgsbok.com");
-                    }
+                    let nv = normalizeUrl(v);
                     if (fallback.indexOf(nv) === -1) fallback.push(nv);
                 }
             }
 
             if (link !== null) {
-                // Prefer image4.kcgsbok.com as the primary host for kcg/viestorage images
-                // Normalize any viestorage or kcgsbok variants to image4.kcgsbok.com
-                if (link.indexOf("vieestorage.com") > -1 || link.indexOf("viestorage.com") > -1 || link.indexOf("i4.viestorage.com") > -1) {
-                    link = link.replace(/vieestorage\.com|viestorage\.com|i4\.viestorage\.com/g, "image4.kcgsbok.com");
-                } else if (link.indexOf("kcgsbok.com") > -1 || /image[1-10]\.kcgsbok\.com/.test(link) || link.indexOf("image4.kcgsbok.com") > -1) {
-                    link = link.replace(/image[1-10]\.kcgsbok\.com|kcgsbok\.com/g, "image4.kcgsbok.com");
-                }
+                // normalize primary link to canonical host
+                link = normalizeUrl(link);
             }
 
             data.push({
