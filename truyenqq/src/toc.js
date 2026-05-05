@@ -6,7 +6,7 @@ function execute(url) {
     var doc = bypass(url, Http.get(url).html());
     if(doc) {
         var list = [];
-        var el = doc.select(".works-chapter-list a");
+        var el = doc.select(".gg-chapter-list a");
         for (var i = el.size() - 1; i >= 0; i--) {
             var e = el.get(i);
             list.push({
