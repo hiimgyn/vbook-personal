@@ -3,9 +3,7 @@ load("config.js");
 function execute(keyword, page) {
     var q = encodeURIComponent(keyword);
     var fetchUrl = BASE_URL + "/?s=" + q + "&post_type=wp-manga";
-    var res = fetch(fetchUrl, FETCH_OPTIONS);
-    if (!res || !res.ok) return Response.success([], null);
-    var doc = res.html();
+    var doc = fetchDocument(fetchUrl, FETCH_OPTIONS);
     if (!doc) return Response.success([], null);
 
     // Trang search dùng .c-tabs-item__content thay vì .page-item-detail

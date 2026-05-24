@@ -1,12 +1,9 @@
 load("config.js");
 
 function execute(url, page) {
-    var p = page ? parseInt(page) : 1;
-    var fetchUrl = BASE_URL + "/theloai/" + url + "/page/" + p + "/";
+    var fetchUrl = buildPagedUrl("theloai/" + url, page);
 
-    var res = fetch(fetchUrl, FETCH_OPTIONS);
-    if (!res || !res.ok) return Response.success([], null);
-    var doc = res.html();
+    var doc = fetchDocument(fetchUrl, FETCH_OPTIONS);
     if (!doc) return Response.success([], null);
 
     var items = parseListItems(doc);

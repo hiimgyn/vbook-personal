@@ -9,8 +9,8 @@
       "author": "hiimgyn",
       "version": 1,
       "source": "https://translate.google.com",
-      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/google-tts/plugin.zip",
-      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/google-tts/icon.png",
+      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/tts/google-tts/plugin.zip",
+      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/tts/google-tts/icon.png",
       "description": "Nghe truyện bằng Google TTS",
       "type": "tts"
     },
@@ -19,8 +19,8 @@
       "author": "hiimgyn",
       "version": 1,
       "source": "https://gemini.google.com",
-      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/gemini-tts/plugin.zip",
-      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/gemini-tts/icon.png",
+      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/tts/gemini-tts/plugin.zip",
+      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/tts/gemini-tts/icon.png",
       "description": "Nghe truyện bằng Gemini TTS",
       "type": "tts"
     },
@@ -29,8 +29,8 @@
       "author": "hiimgyn",
       "version": 1,
       "source": "https://www.bing.com/translator",
-      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/bing-tts/plugin.zip",
-      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/bing-tts/icon.png",
+      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/tts/bing-tts/plugin.zip",
+      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/tts/bing-tts/icon.png",
       "description": "Nghe truyện bằng Bing TTS",
       "type": "tts"
     },
@@ -39,8 +39,8 @@
       "author": "hiimgyn",
       "version": 1,
       "source": "https://ai.zalo.cloud/docs/api/getting-started",
-      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/zalo-tts/plugin.zip",
-      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/zalo-tts/icon.png",
+      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/tts/zalo-tts/plugin.zip",
+      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/tts/zalo-tts/icon.png",
       "description": "Nghe truyện bằng Zalo AI TTS",
       "type": "tts"
     },
@@ -49,8 +49,8 @@
       "author": "hiimgyn",
       "version": 1,
       "source": "https://www.tiktok.com",
-      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/tiktok-tts/plugin.zip",
-      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/tiktok-tts/icon.png",
+      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/tts/tiktok-tts/plugin.zip",
+      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/tts/tiktok-tts/icon.png",
       "description": "Nghe truyện bằng Tiktok TTS",
       "type": "tts"
     }

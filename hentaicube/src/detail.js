@@ -2,10 +2,8 @@ load("config.js");
 
 function execute(url) {
     var storyUrl = resolveUrl(url);
-    var res = fetch(storyUrl, FETCH_OPTIONS);
-    if (!res || !res.ok) return Response.error("Mở browser lên mà verify Cloudflare đi bạn ơi");
-    var doc = res.html();
-    if (!doc) return Response.error("Không đọc được nội dung trang");
+    var doc = fetchDocument(storyUrl, FETCH_OPTIONS);
+    if (!doc) return Response.error("Mở browser lên mà verify Cloudflare đi bạn ơi");
 
     // Cover - dùng srcset để lấy ảnh gốc (entry cuối cùng)
     var cover = "";

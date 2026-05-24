@@ -52,7 +52,7 @@
       "name": "Say Hentai",
       "author": "hiimgyn",
       "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/sayhentai/plugin.zip",
-      "version": 5,
+      "version": 6,
       "source": "https://sayhentai.sh",
       "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/sayhentai/icon.png",
       "description": "Đọc truyện trên trang Sayhentai.sh",
@@ -85,30 +85,6 @@
       "tag": "nsfw"
     },
     {
-      "name": "alicesw",
-      "author": "hiimgyn",
-      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/alicesw/plugin.zip",
-      "version": 1,
-      "source": "http://alicesw.com",
-      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/alicesw/icon.png",
-      "description": "Read Chinese novels on AliceSW (Fork from B)",
-      "type": "chinese_novel",
-      "locale": "zh_CN",
-      "tag": "nsfw"
-    },
-    {
-      "name": "Cool18 Novel",
-      "author": "hiimgyn",
-      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/cool18-novel/plugin.zip",
-      "version": 1,
-      "source": "https://www.cool18.com/bbs4/",
-      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/cool18-novel/icon.png",
-      "description": "Đọc truyện trên trang Cool18",
-      "type": "chinese_novel",
-      "locale": "zh_CN",
-      "tag": "nsfw"
-    },
-    {
       "name": "Cosplaytele",
       "author": "hiimgyn",
       "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/cosplaytele/plugin.zip",
@@ -118,18 +94,6 @@
       "description": "Cosplay photo galleries",
       "type": "comic",
       "locale": "en_US",
-      "tag": "nsfw"
-    },
-    {
-      "name": "CRXS",
-      "author": "hiimgyn",
-      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/crxs.me/plugin.zip",
-      "version": 1,
-      "source": "https://crxs.me",
-      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/crxs.me/icon.png",
-      "description": "Đọc truyện chữ Trung Quốc trên CRXS",
-      "type": "chinese_novel",
-      "locale": "zh_CN",
       "tag": "nsfw"
     },
     {
@@ -145,29 +109,18 @@
       "tag": "nsfw"
     },
     {
-      "name": "HentaiCube -18+",
+      "name": "HentaiCube",
       "author": "hiimgyn",
       "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/hentaicube/plugin.zip",
       "version": 1,
       "source": "https://hentaicube.xyz",
       "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/hentaicube/icon.png",
-      "description": "HentaiCube - Truyện Hentai Online 18+ (fork from Meo)",
+      "description": "HentaiCube - Truyện Hentai Online 18+",
       "type": "comic",
       "locale": "vi_VN",
       "tag": "nsfw"
     },
-    {
-      "name": "Photos18",
-      "author": "hiimgyn",
-      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/photos18/plugin.zip",
-      "version": 1,
-      "source": "https://www.photos18.com/",
-      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/photos18/icon.png",
-      "description": "Girl photos",
-      "type": "comic",
-      "locale": "zh_CN",
-      "tag": "nsfw"
-    },
+
     {
       "name": "TruyenDich.AI",
       "author": "hiimgyn",
@@ -190,18 +143,6 @@
       "type": "comic",
       "locale": "zh_CN",
       "tag": "nsfw"
-    },
-    {
-      "name": "ZumiNovel",
-      "author": "hiimgyn",
-      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/zuminovel/plugin.zip",
-      "version": 1,
-      "source": "https://zuminovel.com",
-      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/zuminovel/icon.png",
-      "description": "Đọc truyện trên ZumiNovel",
-      "type": "novel",
-      "locale": "vi_VN",
-      "tag": "normal"
     }
   ]
 }
