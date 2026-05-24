@@ -1,0 +1,21 @@
+{
+  "name": "vbook-personal",
+  "version": "1.0.0",
+  "description": "Personal plugin collection for VBook",
+  "homepage": "https://github.com/hiimgyn/vbook-personal#readme",
+  "bugs": {
+    "url": "https://github.com/hiimgyn/vbook-personal/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hiimgyn/vbook-personal.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "scripts/domainChecker.js",
+  "scripts": {
+    "dev": "node scripts/domainChecker.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

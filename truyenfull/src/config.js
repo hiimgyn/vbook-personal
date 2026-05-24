@@ -1,1 +1,1 @@
-const BASE_URL = "https://truyenfull.today"
+const BASE_URL = "https://truyenhoan.com"

@@ -2,9 +2,9 @@
   "metadata": {
     "name": "Truyện Full",
     "author": "hiimgyn",
-    "version": 3,
-    "source": "https://truyenfull.today",
-    "regexp": "(www.)?truyenfull.(vn|net|io|bio|vision|today)/[^/]+/?$",
+    "version": 4,
+    "source": "https://truyenhoan.com",
+    "regexp": "(www.)?truyenhoan.(com|vn|net|io|bio|vision|today)/[^/]+/?$",
     "description": "Đọc truyện trên trang Truyện Full",
     "locale": "vi_VN",
     "type": "novel",
