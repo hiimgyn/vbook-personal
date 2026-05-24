@@ -1,5 +1,3 @@
-load("bypass.js");
-
 var BASE_URL = "https://hentaicube.xyz";
 var HOST = "https://hentaicube.xyz";
 
@@ -24,20 +22,6 @@ function resolveUrl(url) {
     return BASE_URL + (url.charAt(0) === "/" ? url : "/" + url);
 }
 
-function fetchDocument(url, options) {
-    var opts = options || FETCH_OPTIONS;
-    var res = fetch(url, opts);
-    if (!res || !res.ok) return null;
-    var doc = res.html();
-    if (!doc) return null;
-
-    var method = (opts && opts.method ? String(opts.method) : "GET").toUpperCase();
-    if (method === "GET" && typeof bypass === "function") {
-        doc = bypass(url, doc);
-    }
-
-    return doc;
-}
 
 function buildPagedUrl(pathOrUrl, page) {
     var raw = pathOrUrl || "";

@@ -2,7 +2,9 @@ load("config.js");
 
 function execute(url, page) {
     var fetchUrl = buildPagedUrl(url || "read", page);
-    var doc = fetchDocument(fetchUrl, FETCH_OPTIONS);
+    var res = fetch(fetchUrl, FETCH_OPTIONS);
+    if (!res || !res.ok) return Response.success([], null);
+    var doc = res.html();
     if (!doc) return Response.success([], null);
 
     var items = parseListItems(doc);

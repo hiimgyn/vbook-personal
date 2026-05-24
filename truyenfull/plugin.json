@@ -2,7 +2,7 @@
   "metadata": {
     "name": "Truyện Full",
     "author": "hiimgyn",
-    "version": 4,
+    "version": 5,
     "source": "https://truyenhoan.com",
     "regexp": "(www.)?truyenhoan.(com|vn|net|io|bio|vision|today)/[^/]+/?$",
     "description": "Đọc truyện trên trang Truyện Full",
