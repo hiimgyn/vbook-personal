@@ -143,6 +143,41 @@
       "type": "comic",
       "locale": "zh_CN",
       "tag": "nsfw"
+    },
+    {
+      "name": "CosplayteleVideo",
+      "author": "hiimgyn",
+      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/videos/cosplaytele-video/plugin.zip",
+      "version": 1,
+      "source": "https://cosplaytele.com",
+      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/videos/cosplaytele-video/icon.png",
+      "description": "Cosplay Video",
+      "type": "video",
+      "locale": "en_US",
+      "tag": "nsfw"
+    },
+    {
+      "name": "HentaiVietsubVideo",
+      "author": "hiimgyn",
+      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/videos/hentaivietsub/plugin.zip",
+      "version": 1,
+      "source": "https://hentaivietsub.com",
+      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/videos/hentaivietsub/icon.png",
+      "description": "HentaiVietsub Video",
+      "type": "video",
+      "locale": "en_US",
+      "tag": "nsfw"
+    },
+       {
+      "name": "NguonC",
+      "author": "hiimgyn",
+      "path": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/videos/nguonc/plugin.zip",
+      "version": 1,
+      "source": "https://phim.nguonc.com",
+      "icon": "https://raw.githubusercontent.com/hiimgyn/vbook-personal/main/videos/nguonc/icon.png",
+      "description": "Video extension for NguonC API",
+      "type": "video",
+      "locale": "vi_VN"
     }
   ]
 }
