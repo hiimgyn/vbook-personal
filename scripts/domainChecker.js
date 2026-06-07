@@ -2,6 +2,10 @@ const fs = require('fs');
 const path = require('path');
 
 const DISCORD_WEBHOOK_URL = process.env.DISCORD_WEBHOOK_URL;
+const DISCORD_MESSAGE_STATE_PATH = path.join(
+  __dirname,
+  '.domain-checker-message.json'
+);
 
 const REDIRECT_STATUS_CODES = [301, 302, 303, 307, 308];
 
@@ -56,6 +60,51 @@ function isUnknownStatus(status) {
 
 function uniqueArray(arr) {
   return Array.from(new Set(arr));
+}
+
+function loadDiscordMessageState() {
+  try {
+    if (!fs.existsSync(DISCORD_MESSAGE_STATE_PATH)) {
+      return null;
+    }
+
+    const raw = fs.readFileSync(DISCORD_MESSAGE_STATE_PATH, 'utf8');
+    const json = JSON.parse(raw);
+
+    if (!json || typeof json.messageId !== 'string' || json.messageId.trim() === '') {
+      return null;
+    }
+
+    return {
+      messageId: json.messageId.trim(),
+    };
+  } catch {
+    return null;
+  }
+}
+
+function saveDiscordMessageState(messageId) {
+  fs.writeFileSync(
+    DISCORD_MESSAGE_STATE_PATH,
+    JSON.stringify(
+      {
+        messageId,
+        updatedAt: new Date().toISOString(),
+      },
+      null,
+      2
+    )
+  );
+}
+
+function clearDiscordMessageState() {
+  try {
+    if (fs.existsSync(DISCORD_MESSAGE_STATE_PATH)) {
+      fs.unlinkSync(DISCORD_MESSAGE_STATE_PATH);
+    }
+  } catch {
+    // ignore
+  }
 }
 
 function loadSourceUrls() {
@@ -351,15 +400,21 @@ function chunkBlocks(blocks, maxLength = 3800) {
 }
 
 function buildEmbedsFromBlocks(title, color, blocks) {
-  const descriptions = chunkBlocks(blocks);
+  if (!blocks || blocks.length === 0) return [];
 
-  if (descriptions.length === 0) return [];
+  const maxDescriptionLength = 3800;
+  const suffix = '\n\n... (đã rút gọn để vừa một message)';
+  const rawDescription = blocks.join('\n\n');
+  const description =
+    rawDescription.length > maxDescriptionLength
+      ? rawDescription.slice(0, Math.max(0, maxDescriptionLength - suffix.length)) + suffix
+      : rawDescription;
 
-  return descriptions.map((description, index) => ({
-    title: descriptions.length > 1 ? `${title} (${index + 1}/${descriptions.length})` : title,
+  return [{
+    title,
     color,
     description,
-  }));
+  }];
 }
 
 function chunkEmbeds(embeds, maxPerRequest = 10) {
@@ -376,23 +431,63 @@ async function sendDiscord({ content = '', embeds = [] }) {
     return;
   }
 
-  const embedChunks = chunkEmbeds(embeds.length > 0 ? embeds : []);
-  const requests = embedChunks.length > 0 ? embedChunks : [[]];
+  const payload = {
+    content,
+    username: 'Domain Checker',
+    embeds,
+  };
 
-  for (let i = 0; i < requests.length; i += 1) {
-    const payload = {
-      content: i === 0 ? content : '',
-      username: 'Domain Checker',
-      embeds: requests[i],
-    };
+  const headers = {
+    'Content-Type': 'application/json',
+  };
 
-    await fetchWithTimeout(DISCORD_WEBHOOK_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+  const state = loadDiscordMessageState();
+
+  if (state) {
+    const editUrl = new URL(DISCORD_WEBHOOK_URL);
+    editUrl.pathname = editUrl.pathname.replace(/\/$/, '') + `/messages/${state.messageId}`;
+    editUrl.search = '';
+
+    const editResponse = await fetchWithTimeout(editUrl.toString(), {
+      method: 'PATCH',
+      headers,
       body: JSON.stringify(payload),
     });
+
+    if (editResponse.ok) {
+      return;
+    }
+
+    const editErrorText = await editResponse.text().catch(() => '');
+    console.log(
+      `Failed to update Discord message (${editResponse.status}): ${editErrorText}`
+    );
+
+    if (editResponse.status === 404 || editResponse.status === 401 || editResponse.status === 403) {
+      clearDiscordMessageState();
+    }
+  }
+
+  const createUrl = new URL(DISCORD_WEBHOOK_URL);
+  createUrl.searchParams.set('wait', 'true');
+
+  const createResponse = await fetchWithTimeout(createUrl.toString(), {
+    method: 'POST',
+    headers,
+    body: JSON.stringify(payload),
+  });
+
+  if (!createResponse.ok) {
+    const createErrorText = await createResponse.text().catch(() => '');
+    throw new Error(
+      `Failed to create Discord message (${createResponse.status}): ${createErrorText}`
+    );
+  }
+
+  const responseJson = await createResponse.json().catch(() => null);
+
+  if (responseJson && typeof responseJson.id === 'string') {
+    saveDiscordMessageState(responseJson.id);
   }
 }
 
