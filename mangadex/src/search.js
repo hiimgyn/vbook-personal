@@ -2,7 +2,7 @@ load("config.js");
 
 function execute(key, page) {
     if (!page) page = 0;
-    let response = fetch(API_URL + "/manga?title=" + key + "&limit=20&offset=" + page + "&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&includes[]=cover_art&order[relevance]=desc");
+    let response = fetchWithRetry(API_URL + "/manga?title=" + key + "&limit=20&offset=" + page + "&contentRating[]=safe&contentRating[]=suggestive&contentRating[]=erotica&includes[]=cover_art&order[relevance]=desc");
 
     if (response.ok) {
         let data = response.json();

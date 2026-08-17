@@ -2,7 +2,7 @@ load("config.js");
 
 function execute(url, page) {
     if (!page) page = 0;
-    let response = fetch(url + "&limit=20&offset=" + page);
+    let response = fetchWithRetry(url + "&limit=20&offset=" + page);
 
     if (response.ok) {
         let data = response.json();

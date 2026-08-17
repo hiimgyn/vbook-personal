@@ -14,6 +14,7 @@ function execute(url) {
     let offset = 0;
     while (true) {
         let data = loadChapterPart(API_URL + "/manga/" + bookId + "/feed?&includes[]=scanlation_group&includes[]=user&order[volume]=asc&order[chapter]=asc", offset, translatedLanguage);
+        if (!data) break;
         data.data.forEach((item) => {
             let group = chapterGroups[item.language];
             if (!group) group = [];
@@ -36,7 +37,7 @@ function execute(url) {
 }
 
 function loadChapterPart(url, offset, translatedLanguage) {
-    let response = fetch(url + "&offset=" + offset + "&limit=96" + translatedLanguage);
+    let response = fetchWithRetry(url + "&offset=" + offset + "&limit=96" + translatedLanguage);
     if (response.ok) {
         let data = response.json();
         let chapters = [];

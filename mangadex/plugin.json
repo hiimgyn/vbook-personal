@@ -2,7 +2,7 @@
   "metadata": {
     "name": "MangaDex",
     "author": "hiimgyn",
-    "version": 3,
+    "version": 4,
     "source": "https://mangadex.org",
     "regexp": "mangadex.org/title/.*?",
     "description": "Đọc truyện trên trang MangaDex",

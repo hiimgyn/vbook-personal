@@ -1,4 +1,4 @@
-const BASE_URL = "https://truyendich.ai";
+const BASE_URL = "https://truyendich.fit";
 
 function safeString(value) {
   return value == null ? "" : String(value).trim();

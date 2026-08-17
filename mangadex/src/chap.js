@@ -2,7 +2,7 @@ load("config.js");
 
 function execute(url) {
     let chapterId = /chapter\/(.*?)$/g.exec(url)[1];
-    let response = fetch(API_URL + "/at-home/server/" + chapterId + "?forcePort443=false");
+    let response = fetchWithRetry(API_URL + "/at-home/server/" + chapterId + "?forcePort443=false");
 
     if (response.ok) {
         let data = response.json();

@@ -12,6 +12,23 @@ try {
 }
 let API_URL = BASE_URL.replace("https://", "https://api.");
 
+function sleep(ms) {
+    let start = Date.now();
+    while (Date.now() - start < ms) {}
+}
+
+function fetchWithRetry(url, retries) {
+    if (!retries) retries = 3;
+    for (let i = 0; i < retries; i++) {
+        try {
+            let response = fetch(url);
+            if (response && response.ok) return response;
+        } catch (e) {}
+        if (i < retries - 1) sleep(1000 * (i + 1));
+    }
+    return null;
+}
+
 function getDisplayLanguageData(value) {
     let lang = LANGUAGE.split(",");
     if (lang.length === 0) lang = ["vi"];

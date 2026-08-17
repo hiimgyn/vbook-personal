@@ -2,7 +2,7 @@ load("config.js");
 
 function execute(url, page) {
     if (!page) page = 0;
-    let response = fetch(API_URL + "/manga?includes[]=cover_art&includedTags[]=" + url + "&order[followedCount]=desc" + "&limit=20&offset=" + page);
+    let response = fetchWithRetry(API_URL + "/manga?includes[]=cover_art&includedTags[]=" + url + "&order[followedCount]=desc" + "&limit=20&offset=" + page);
 
     if (response.ok) {
         let data = response.json();

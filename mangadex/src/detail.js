@@ -5,7 +5,7 @@ function execute(url) {
 
     let bookId = /title\/([a-f0-9\-]+)/g.exec(url)[1];
     console.log(bookId)
-    let response = fetch(API_URL + "/manga/" + bookId + "?includes[]=artist&includes[]=author&includes[]=cover_art");
+    let response = fetchWithRetry(API_URL + "/manga/" + bookId + "?includes[]=artist&includes[]=author&includes[]=cover_art");
     if (response.ok) {
         let data = response.json();
         let attributes = data.data.attributes;
